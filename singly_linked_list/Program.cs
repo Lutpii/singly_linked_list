@@ -20,6 +20,51 @@ namespace singly_linked_list
         {
             START = null;
         }
+        //Method untuk menambahkan sebuah node ke dalam list
+
+        public void addNode()
+        {
+            int nim;
+            string nm;
+            Console.WriteLine("\nMasukan nomer Mahasiswa: ");
+            nim = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("\nMasukan nama Mahasiswa: ");
+            nm = Console.ReadLine();
+
+            Node nodeBaru = new Node();
+            nodeBaru.noMhs = nim;
+            nodeBaru.nama = nm;
+
+            //Node ditambahkan sebagai node pertama
+            if (START == null || nim <= START.noMhs)
+            {
+                if ((START != null) && (nim == START.noMhs))
+                {
+                    Console.WriteLine("\nNomer mahasiswa sama tidak diizinkan ");
+                }
+                nodeBaru.next = START;
+                START = nodeBaru;
+                return;
+            }
+            //Menemukan lokasi node baru didalam list
+            Node previous, current;
+            previous = START;
+            current = START;
+
+            while ((current != null) && (nim >= current.noMhs))
+            {
+                if (nim == current.noMhs)
+                {
+                    Console.WriteLine("\nNomer mahasiswa sama tidak diizinkan");
+                    return;
+                }
+                previous = current;
+                current = current.next;
+            }
+            //Node baru akan ditempatkan di antara previous dan current
+            nodeBaru.next = current;
+            previous.next = nodeBaru;
+        }
     }
     class Program
     {
